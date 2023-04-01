@@ -1,0 +1,53 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Bitcoin Wallet Requisites" coin="Bitcoin">
+  <div class="flex flex-col justify-center items-center gap-16">
+    <img id="qr-code" alt="address qr code" class="invisible w-[250px] h-[250px]" />
+
+    <div class="flex justify-between items-center gap-6">
+      <p id="address"></p>
+      <button
+        id="copy"
+        type="button"
+        class="w-24 inline-flex justify-center items-center px-6 py-1.5 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-btc-color hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-btc-color"
+      >
+        Copy
+      </button>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  const urlSearchParams = new URLSearchParams(window.location.search);
+  const { address } = Object.fromEntries(urlSearchParams.entries());
+
+  const addressElement = document.querySelector('#address') as HTMLParagraphElement;
+  addressElement.textContent = address;
+
+  const copyButtonElement = document.querySelector('#copy') as HTMLButtonElement;
+  copyButtonElement.addEventListener('click', () => {
+    navigator.clipboard.writeText(address).then(() => {
+      copyButtonElement.textContent = 'Copied!';
+    });
+
+    setTimeout(() => {
+      copyButtonElement.textContent = 'Copy';
+      copyButtonElement.blur();
+    }, 2000);
+  });
+
+  fetchQR(address).then(image => {
+    const objectUrl = URL.createObjectURL(image);
+
+    const imageElement = document.querySelector('#qr-code') as HTMLImageElement;
+    imageElement.src = objectUrl;
+    imageElement.classList.remove('invisible');
+  });
+
+  async function fetchQR(address: string) {
+    const response = await fetch(`https://api.qrserver.com/v1/create-qr-code/?data=${address}`);
+    return response.blob();
+  }
+</script>

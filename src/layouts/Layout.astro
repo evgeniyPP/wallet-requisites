@@ -1,35 +1,39 @@
 ---
+import GithubButton from '../components/GithubButton.astro';
+import Logo from '../components/Logo.astro';
+
 export interface Props {
-	title: string;
+  title: string;
+  coin: 'Bitcoin';
 }
 
-const { title } = Astro.props;
+const { title, coin } = Astro.props;
 ---
 
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <div class="bg-white py-24 sm:py-36">
+      <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <div class="mx-auto max-w-2xl lg:text-center mb-16">
+          <h1 class="mt-2 text-3xl font-bold tracking-tight text-btc-color sm:text-4xl">
+            <Logo />
+            {coin} Wallet Requisites
+          </h1>
+        </div>
+
+        <slot />
+      </div>
+      <div class="absolute bottom-8 right-8 flex gap-4">
+        <GithubButton />
+      </div>
+    </div>
+  </body>
 </html>
-<style is:global>
-	:root {
-		--accent: 124, 58, 237;
-		--accent-gradient: linear-gradient(45deg, rgb(var(--accent)), #da62c4 30%, white 60%);
-	}
-	html {
-		font-family: system-ui, sans-serif;
-		background-color: #F6F6F6;
-	}
-	code {
-		font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-			Bitstream Vera Sans Mono, Courier New, monospace;
-	}
-</style>
