@@ -6,8 +6,8 @@ import Layout from '../layouts/Layout.astro';
   <div class="flex flex-col justify-center items-center gap-16">
     <img id="qr-code" alt="address qr code" class="invisible w-[250px] h-[250px]" />
 
-    <div class="flex justify-between items-center gap-6">
-      <p id="address"></p>
+    <div class="flex flex-col justify-between items-center gap-6 sm:flex-row">
+      <p id="address" class="max-w-[90vw] break-words"></p>
       <button
         id="copy"
         type="button"
