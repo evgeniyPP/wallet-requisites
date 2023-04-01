@@ -1,4 +1,5 @@
 ---
+import DonateButton from '../components/DonateButton.astro';
 import GithubButton from '../components/GithubButton.astro';
 import Logo from '../components/Logo.astro';
 
@@ -23,7 +24,7 @@ const { title, coin } = Astro.props;
     <div class="bg-white py-24 sm:py-36">
       <div class="mx-auto max-w-7xl px-6 lg:px-8">
         <div class="mx-auto max-w-2xl lg:text-center mb-16">
-          <h1 class="mt-2 text-3xl font-bold tracking-tight text-btc-color sm:text-4xl">
+          <h1 class="mt-2 text-2xl font-bold tracking-tight text-btc-color sm:text-4xl">
             <Logo />
             {coin} Wallet Requisites
           </h1>
@@ -33,6 +34,7 @@ const { title, coin } = Astro.props;
       </div>
       <div class="absolute bottom-8 right-8 flex gap-4">
         <GithubButton />
+        <DonateButton />
       </div>
     </div>
   </body>
